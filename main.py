@@ -37,3 +37,13 @@ if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
 
+@app.get("/film")
+async def getFilm(page=1, per_page=20, genre_id=None):
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute(f"""
+            SELECT * FROM Film LIMIT {per_page} OFFSET {per_page * (page-1)}
+            """)
+        res = cursor.fetchone()
+        print(res)
+        return res
