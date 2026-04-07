@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from db import get_connection
 
@@ -72,6 +72,9 @@ async def getFilmbyID(film_id):
             SELECT * FROM Film WHERE Id = {film_id}
             """)
         res = cursor.fetchone()
+
+        if res == None :
+            raise HTTPException(status_code=404, detail=f"Film not found")
         print(res)
         return res
 
