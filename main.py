@@ -42,9 +42,10 @@ async def getFilm(page=1, per_page=20, genre_id=None):
     with get_connection() as conn:
         cursor = conn.cursor()
         cursor.execute(f"""
-            SELECT * FROM Film LIMIT {per_page} OFFSET {per_page * (page-1) } 
-            CASE WHEN {genre_id} != {None} THEN WHERE "Genre" = {genre_id}
+            SELECT * FROM Film LIMIT {per_page} OFFSET {per_page * (page-1) } ORDER BY "Date"
             """)
         res = cursor.fetchone()
         print(res)
         return res
+    
+    #CASE WHEN {genre_id} != {None} THEN WHERE "Genre" = {genre_id}
