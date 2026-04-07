@@ -35,7 +35,7 @@ async def createFilm(film : Film):
 
 
 @app.get("/films")
-async def getFilm(page=1, per_page=20, genre_id=None):
+async def getFilm(page:int=1, per_page:int=20, genre_id=None):
     with get_connection() as conn:
         cursor = conn.cursor()
         
