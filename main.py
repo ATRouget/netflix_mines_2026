@@ -50,7 +50,7 @@ async def getFilm(page=1, per_page=20, genre_id=None):
             """)
         res = cursor.fetchall()
         print(res)
-        return res
+        return {"data" : res, "page" : page , "per_page" : per_page }
 
 @app.get("/films/{film_id}")
 async def getFilmbyID(film_id):
@@ -59,7 +59,7 @@ async def getFilmbyID(film_id):
         cursor.execute(f"""
             SELECT * FROM Film WHERE Title = {film_id}
             """)
-        res = cursor.fetchall()
+        res = cursor.fetchone()
         print(res)
         return res
 
