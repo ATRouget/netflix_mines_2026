@@ -31,10 +31,7 @@ async def createFilm(film : Film):
         return res
 
 
-if __name__ == "__main__":
-    import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)
 
 
 @app.get("/films")
@@ -43,15 +40,15 @@ async def getFilm(page=1, per_page=20, genre_id=None):
         cursor = conn.cursor()
         if genre_id == None :
             cursor.execute(f"""
-            SELECT * FROM Film ORDER BY "Release_Date" DESC
-            LIMIT {per_page} OFFSET {per_page * page }
+            SELECT * FROM Film ORDER BY Release_Date DESC
+            LIMIT {per_page} OFFSET {per_page * (page-1) }
             """)
         else:
             cursor.execute(f"""
-            SELECT * FROM Film WHERE "Genre" = {genre_id} ORDER BY "Release_Date" DESC
-            LIMIT {per_page} OFFSET {per_page * page }
+            SELECT * FROM Film WHERE Genre = {genre_id} ORDER BY Release_Date DESC
+            LIMIT {per_page} OFFSET {per_page * (page-1) }
             """)
-        res = cursor.fetchone()
+        res = cursor.fetchall()
         print(res)
         return res
 
@@ -60,9 +57,9 @@ async def getFilmbyID(film_id):
     with get_connection() as conn:
         cursor = conn.cursor()
         cursor.execute(f"""
-            SELECT * FROM Film WHERE "Title" = {film_id}
+            SELECT * FROM Film WHERE Title = {film_id}
             """)
-        res = cursor.fetchone()
+        res = cursor.fetchall()
         print(res)
         return res
 
@@ -72,3 +69,9 @@ class User(BaseModel):
     email: str | None = None
     pseudo: str | None = None
     password: str | None = None
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
