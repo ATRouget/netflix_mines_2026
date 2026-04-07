@@ -41,11 +41,11 @@ async def getFilm(page=1, per_page=20, genre_id=None):
         
         if genre_id == None:
             cursor.execute(f"""
-                SELECT COUNT * FROM Film
+                SELECT COUNT(*) FROM Film
             """)
         else:
             cursor.execute(f"""
-                SELECT COUNT * FROM Film WHERE Genre_ID = {genre_id}
+                SELECT COUNT(*) FROM Film WHERE Genre_ID = {genre_id}
             """)
         total = cursor.fetchone()[0]
 
