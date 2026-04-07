@@ -37,7 +37,7 @@ if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
 
-@app.get("/film")
+@app.get("/films")
 async def getFilm(page=1, per_page=20, genre_id=None):
     with get_connection() as conn:
         cursor = conn.cursor()
@@ -55,7 +55,7 @@ async def getFilm(page=1, per_page=20, genre_id=None):
         print(res)
         return res
 
-@app.get("/film/{film_id}")
+@app.get("/films/{film_id}")
 async def getFilmbyID(film_id):
     with get_connection() as conn:
         cursor = conn.cursor()
