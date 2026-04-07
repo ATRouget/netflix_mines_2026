@@ -57,7 +57,7 @@ async def getFilmbyID(film_id):
     with get_connection() as conn:
         cursor = conn.cursor()
         cursor.execute(f"""
-            SELECT * FROM Film WHERE Title = {film_id}
+            SELECT * FROM Film WHERE Id = {film_id}
             """)
         res = cursor.fetchone()
         print(res)
