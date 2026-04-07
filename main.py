@@ -53,7 +53,7 @@ async def getFilm(page=1, per_page=20, genre_id=None):
             """)
         res = cursor.fetchone()
         print(res)
-        return dict(res)
+        return res
 
 @app.get("/film/{film_id}")
 async def getFilmbyID(film_id):
