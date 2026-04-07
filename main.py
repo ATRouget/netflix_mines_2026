@@ -43,13 +43,13 @@ async def getFilm(page=1, per_page=20, genre_id=None):
         cursor = conn.cursor()
         if genre_id == None :
             cursor.execute(f"""
-            SELECT * FROM Film LIMIT {int(per_page)} OFFSET {int(per_page) * int(page) }
-            ORDER BY "Release_Date" DESC
+            SELECT * FROM Film ORDER BY "Release_Date" DESC
+            LIMIT {per_page} OFFSET {per_page * page }
             """)
         else:
             cursor.execute(f"""
-            SELECT * FROM Film WHERE "Genre" = {genre_id} LIMIT {per_page} OFFSET {per_page * page }
-            ORDER BY "Release_Date" DESC
+            SELECT * FROM Film WHERE "Genre" = {genre_id} ORDER BY "Release_Date" DESC
+            LIMIT {per_page} OFFSET {per_page * page }
             """)
         res = cursor.fetchone()
         print(res)
