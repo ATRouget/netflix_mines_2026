@@ -78,6 +78,17 @@ async def getFilmbyID(film_id):
         print(res)
         return res
 
+@app.get("/genres")
+async def getGenre():
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute(f"""
+            SELECT DISTINCT Genre_Id, Genre AS Type FROM Film JOIN Genre ON Genre_Id = Id
+            """)
+        res = cursor.fetchall()
+        print(res)
+        return res
+
 
 class User(BaseModel):
     id: int | None = None
