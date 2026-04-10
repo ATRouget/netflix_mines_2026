@@ -83,7 +83,7 @@ async def getGenre():
     with get_connection() as conn:
         cursor = conn.cursor()
         cursor.execute(f"""
-            SELECT DISTINCT Genre_Id, Type FROM Film JOIN Genre ON Genre_Id = Id
+            SELECT DISTINCT Genre_Id, Type FROM Film JOIN Genre ON Film.Genre_Id = Genre.Id
             """)
         res = cursor.fetchall()
         print(res)
