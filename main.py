@@ -97,6 +97,7 @@ class User(BaseModel):
     pseudo: str | None = None
     motdepasse: str | None = None
 
+"""
 @app.post("/auth/register")
 async def createUser(user : User):
     with get_connection() as conn:
@@ -108,6 +109,7 @@ async def createUser(user : User):
         res = cursor.fetchone()
         print(res)
         return res
+"""
 
 
 if __name__ == "__main__":
