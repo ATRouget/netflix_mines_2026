@@ -19,18 +19,6 @@ class Film(BaseModel):
     video: str | None = None
     genreId: int | None = None
 
-@app.post("/film")
-async def createFilm(film : Film):
-    with get_connection() as conn:
-        cursor = conn.cursor()
-        cursor.execute(f"""
-            INSERT INTO Film (Nom,Note,DateSortie,Image,Video)  
-            VALUES('{film.nom}',{film.note},{film.dateSortie},'{film.image}','{film.video}') RETURNING *
-            """)
-        res = cursor.fetchone()
-        print(res)
-        return res
-
 
 
 
