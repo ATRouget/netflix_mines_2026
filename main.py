@@ -104,7 +104,7 @@ async def createUser(user : User):
         cursor.execute(f"""
             INSERT INTO Utilisateur (AdresseMail, Pseudo, MotDePasse)  
             VALUES('{user.email}','{user.pseudo}','{user.motdepasse}'
-            """)
+            """) 
         res = cursor.fetchone()
         print(res)
         return res
