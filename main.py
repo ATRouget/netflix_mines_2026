@@ -97,19 +97,19 @@ class User(BaseModel):
     pseudo: str | None = None
     motdepasse: str | None = None
 
-"""
+
 @app.post("/auth/register")
 async def createUser(user : User):
     with get_connection() as conn:
         cursor = conn.cursor()
         cursor.execute(f"""
             INSERT INTO Utilisateur (AdresseMail, Pseudo, MotDePasse)  
-            VALUES('{user.email}','{user.pseudo}','{user.motdepasse}'
+            VALUES('{user.email}','{user.pseudo}','{user.motdepasse}') RETURNING *
             """)
         res = cursor.fetchone()
         print(res)
         return res
-"""
+
 
 
 if __name__ == "__main__":
