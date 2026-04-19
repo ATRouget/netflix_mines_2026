@@ -86,7 +86,6 @@ class User(BaseModel):
     pseudo: str | None = None
     motdepasse: str | None = None
 
-import jwt as pyjwt
 
 @app.post("/auth/register")
 async def createUser(user : User):
