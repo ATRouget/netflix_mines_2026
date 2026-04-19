@@ -94,7 +94,19 @@ class User(BaseModel):
     id: int | None = None
     email: str | None = None
     pseudo: str | None = None
-    password: str | None = None
+    motdepasse: str | None = None
+
+@app.post("/auth/register")
+async def createUser(user : User):
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute(f"""
+            INSERT INTO Utilisateur (AdresseMail, Pseudo, MotDePasse)  
+            VALUES('{user.email}',{user.pseudo},{user.motdepasse}
+            """)
+        res = cursor.fetchone()
+        print(res)
+        return res
 
 
 if __name__ == "__main__":
