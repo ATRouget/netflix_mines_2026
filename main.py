@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from db import get_connection
+import jwt
 
 app = FastAPI()
 
@@ -102,7 +103,7 @@ async def createUser(user : User):
         cursor = conn.cursor()
         cursor.execute(f"""
             INSERT INTO Utilisateur (AdresseMail, Pseudo, MotDePasse)  
-            VALUES('{user.email}',{user.pseudo},{user.motdepasse}
+            VALUES('{user.email}','{user.pseudo}','{user.motdepasse}'
             """)
         res = cursor.fetchone()
         print(res)
