@@ -2,6 +2,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from db import get_connection
+from jwt import encode
 
 
 app = FastAPI()
@@ -86,6 +87,10 @@ class User(BaseModel):
     pseudo: str | None = None
     motdepasse: str | None = None
 
+def create_token(data) :
+    data_jwt = encode(data)
+    return data_jwt
+
 
 @app.post("/auth/register")
 async def createUser(user : User):
@@ -97,7 +102,13 @@ async def createUser(user : User):
             """)
         res = cursor.fetchone()
         print(res)
-        return res
+        
+        user_id, email, pseudo, password = res
+        token = create_token({'id' : user_id , "email" : email , "pseudo" : pseudo})
+        return {"access_token": token, "token_type": "bearer"}
+
+
+
 
 
 
