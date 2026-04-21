@@ -2,7 +2,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from db import get_connection
-import jwt
 
 
 app = FastAPI()
