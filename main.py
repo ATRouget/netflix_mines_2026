@@ -2,6 +2,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from db import get_connection
+import jwt
 
 
 app = FastAPI()
@@ -26,7 +27,7 @@ async def createFilm(film : Film):
     with get_connection() as conn:
         cursor = conn.cursor()
         cursor.execute(f"""
-            INSERT INTO Film (Nom,Note,DateSortie,Image,Video)  
+            INSERT INTO Film (Nom,Note,DateSortie,Image,Video)
             VALUES('{film.nom}',{film.note},{film.dateSortie},'{film.image}','{film.video}') RETURNING *
             """)
         res = cursor.fetchone()
@@ -97,8 +98,6 @@ class User(BaseModel):
     motdepasse: str | None = None
 
 
-
-
 @app.post("/auth/register")
 async def createUser(user : User):
     with get_connection() as conn:
@@ -110,12 +109,6 @@ async def createUser(user : User):
         res = cursor.fetchone()
         print(res)
         return res
-    
-
-
-
-
-
 
 
 
